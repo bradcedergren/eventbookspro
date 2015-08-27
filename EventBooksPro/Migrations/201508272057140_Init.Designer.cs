@@ -13,7 +13,7 @@ namespace EventBooksPro.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201508272019291_Init"; }
+            get { return "201508272057140_Init"; }
         }
         
         string IMigrationMetadata.Source

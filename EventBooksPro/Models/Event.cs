@@ -28,10 +28,10 @@ namespace EventBooksPro.Models
         public int EndTime { get; set; }
 
         [Display(Name = "Event Type")]
-        public List<EventType> EventTypes { get; set; }
+        public int EventTypeId { get; set; }
 
         [Display(Name = "Client Name")]
-        public List<Client> Clients { get; set; }
+        public int ClientId { get; set; }
 
         public string ApplicationUserId { get; set; }
     }

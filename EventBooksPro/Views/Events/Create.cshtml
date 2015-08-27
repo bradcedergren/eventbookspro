@@ -47,16 +47,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EventTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.EventTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <!-- TODO: Add dropdown for EventTypes -->
+                @Html.DropDownListFor(model => model.EventTypeId, (List<SelectListItem>)ViewBag.EventTypes)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Clients, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ClientId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <!-- TODO: Add dropdown for Clients -->
+                @Html.DropDownListFor(model => model.ClientId,(List<SelectListItem>)ViewBag.Clients)
             </div>
         </div>
 

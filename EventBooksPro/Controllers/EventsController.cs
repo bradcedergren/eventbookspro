@@ -49,6 +49,8 @@ namespace EventBooksPro.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
+            ViewBag.Clients = db.Clients.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            ViewBag.EventTypes = db.EventTypes.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
             return View();
         }
 
@@ -75,6 +77,10 @@ namespace EventBooksPro.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ViewBag.Clients = db.Clients.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            ViewBag.EventTypes = db.EventTypes.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
             Event @event = db.Events.Find(id);
             if (@event == null)
             {
