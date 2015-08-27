@@ -7,105 +7,111 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EventBooksPro.Models;
-using Microsoft.AspNet.Identity;
 
 namespace EventBooksPro.Controllers
 {
     [Authorize]
-    public class EventsController : Controller
+    public class EventTypesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Events
+        // GET: EventTypes
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
-            var events = db.Events.Where(e => e.ApplicationUserId == userId);
-
-            return View(events.ToList());
+            return View(db.EventTypes.ToList());
         }
 
-        // GET: Events/Details/5
+        // GET: EventTypes/Details/5
         public ActionResult Details(int? id)
         {
-            var userId = User.Identity.GetUserId();
-            var events = db.Events.Where(e => e.ApplicationUserId == userId && e.Id == id);
-            return View(events);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            EventType eventType = db.EventTypes.Find(id);
+            if (eventType == null)
+            {
+                return HttpNotFound();
+            }
+            return View(eventType);
         }
 
-        // GET: Events/Create
+        // GET: EventTypes/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Events/Create
+        // POST: EventTypes/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Event @event)
+        public ActionResult Create([Bind(Include = "Id,Name")] EventType eventType)
         {
             if (ModelState.IsValid)
             {
-                @event.ApplicationUserId = User.Identity.GetUserId();
-                db.Events.Add(@event);
+                db.EventTypes.Add(eventType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(@event);
+            return View(eventType);
         }
 
-        // GET: Events/Edit/5
+        // GET: EventTypes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event @event = db.Events.Find(id);
-            if (@event == null)
+            EventType eventType = db.EventTypes.Find(id);
+            if (eventType == null)
             {
                 return HttpNotFound();
             }
-            return View(@event);
+            return View(eventType);
         }
 
-        // POST: Events/Edit/5
+        // POST: EventTypes/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Event @event)
+        public ActionResult Edit([Bind(Include = "Id,Name")] EventType eventType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(@event).State = EntityState.Modified;
+                db.Entry(eventType).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(@event);
+            return View(eventType);
         }
 
-        // GET: Events/Delete/5
+        // GET: EventTypes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event @event = db.Events.Find(id);
-            if (@event == null)
+            EventType eventType = db.EventTypes.Find(id);
+            if (eventType == null)
             {
                 return HttpNotFound();
             }
-            return View(@event);
+            return View(eventType);
         }
 
-        // POST: Events/Delete/5
+        // POST: EventTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Event @event = db.Events.Find(id);
-            db.Events.Remove(@event);
+            EventType eventType = db.EventTypes.Find(id);
+            db.EventTypes.Remove(eventType);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

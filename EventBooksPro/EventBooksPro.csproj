@@ -160,24 +160,22 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\EventTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508252047081_InitialCreate.cs" />
-    <Compile Include="Migrations\201508252047081_InitialCreate.Designer.cs">
-      <DependentUpon>201508252047081_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508261521278_UpdatedEventModel.cs" />
-    <Compile Include="Migrations\201508261521278_UpdatedEventModel.Designer.cs">
-      <DependentUpon>201508261521278_UpdatedEventModel.cs</DependentUpon>
+    <Compile Include="Migrations\201508271352269_Init.cs" />
+    <Compile Include="Migrations\201508271352269_Init.Designer.cs">
+      <DependentUpon>201508271352269_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -244,6 +242,8 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\EventTypes\Create.cshtml" />
+    <Content Include="Views\EventTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -256,11 +256,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508252047081_InitialCreate.resx">
-      <DependentUpon>201508252047081_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508261521278_UpdatedEventModel.resx">
-      <DependentUpon>201508261521278_UpdatedEventModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508271352269_Init.resx">
+      <DependentUpon>201508271352269_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

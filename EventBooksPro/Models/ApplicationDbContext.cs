@@ -8,6 +8,7 @@ namespace EventBooksPro.Models
     {
         IDbSet<Client> Clients { get; set; }
         IDbSet<Event> Events { get; set; }
+        IDbSet<EventType> EventTypes { get; set; }
 
         int SaveChanges();
     }
@@ -32,5 +33,6 @@ namespace EventBooksPro.Models
 
         public IDbSet<Client> Clients { get; set; }
         public IDbSet<Event> Events { get; set; }
+        public IDbSet<EventType> EventTypes { get; set; }
     }
 }
