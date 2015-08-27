@@ -10,14 +10,28 @@ namespace EventBooksPro.Models
     public class Event
     {
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        public DateTime Date { get; set; }
-        public int StartTime { get; set; }
-        public int EndTime { get; set; }
         
-        public IEnumerable<EventType> EventTypes { get; set; }
-        public IEnumerable<Client> Clients { get; set; }
+        [Required(ErrorMessage = "Event Name is required")]
+        [Display(Name = "Event Name")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Event Date is required")]
+        [Display(Name = "Event Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime Date { get; set; }
+
+        [Required(ErrorMessage = "Event Start Time is required")]
+        [Display(Name = "Start Time")]
+        public int StartTime { get; set; }
+        
+        [Display(Name = "End Time")]
+        public int EndTime { get; set; }
+
+        [Display(Name = "Event Type")]
+        public List<EventType> EventTypes { get; set; }
+
+        [Display(Name = "Client Name")]
+        public List<Client> Clients { get; set; }
 
         public string ApplicationUserId { get; set; }
     }

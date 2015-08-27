@@ -7,118 +7,110 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EventBooksPro.Models;
-using Microsoft.AspNet.Identity;
 
 namespace EventBooksPro.Controllers
 {
-    [Authorize]
-    public class EventsController : Controller
+    public class ClientsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Events
+        // GET: Clients
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
-            var events = db.Events.Where(e => e.ApplicationUserId == userId);
-
-            return View(events.ToList());
+            return View(db.Clients.ToList());
         }
 
-        // GET: Events/Details/5
+        // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
-            var userId = User.Identity.GetUserId();
-            var events = db.Events.Where(e => e.ApplicationUserId == userId && e.Id == id).FirstOrDefault();
-            return View(events);
-        }
-
-        public ActionResult Search(string searchString)
-        {
-            var userId = User.Identity.GetUserId();
-            var events = db.Events.Where(e => e.ApplicationUserId == userId);
-
-            if (!String.IsNullOrEmpty(searchString))
+            if (id == null)
             {
-                events = events.Where(e => e.Name.Contains(searchString));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            return View(events);
+            Client client = db.Clients.Find(id);
+            if (client == null)
+            {
+                return HttpNotFound();
+            }
+            return View(client);
         }
 
-        // GET: Events/Create
+        // GET: Clients/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Events/Create
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Event @event)
+        public ActionResult Create([Bind(Include = "Id,Name,Address,City,State,Zip,Phone,ContactName")] Client client)
         {
             if (ModelState.IsValid)
             {
-                @event.ApplicationUserId = User.Identity.GetUserId();
-                db.Events.Add(@event);
+                db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(@event);
+            return View(client);
         }
 
-        // GET: Events/Edit/5
+        // GET: Clients/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event @event = db.Events.Find(id);
-            if (@event == null)
+            Client client = db.Clients.Find(id);
+            if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(@event);
+            return View(client);
         }
 
-        // POST: Events/Edit/5
+        // POST: Clients/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Event @event)
+        public ActionResult Edit([Bind(Include = "Id,Name,Address,City,State,Zip,Phone,ContactName")] Client client)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(@event).State = EntityState.Modified;
+                db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(@event);
+            return View(client);
         }
 
-        // GET: Events/Delete/5
+        // GET: Clients/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event @event = db.Events.Find(id);
-            if (@event == null)
+            Client client = db.Clients.Find(id);
+            if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(@event);
+            return View(client);
         }
 
-        // POST: Events/Delete/5
+        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Event @event = db.Events.Find(id);
-            db.Events.Remove(@event);
+            Client client = db.Clients.Find(id);
+            db.Clients.Remove(client);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
